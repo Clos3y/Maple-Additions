@@ -4,9 +4,19 @@ MatrixRoot:=proc(n,r,A)
 # n is the dimension of Matrix A, where A is a Complex nxn matrix with positive real eigenvalues
 # r is the root you wish to take, with r in (0,1)
 
+#Exception handling
+
+for i from 1 to n do:
+
+	if evalf(LinearAlgebra[Eigenvalues](A)[i])<0 then error "Negative eigenvalue; must be positive" else end if;
+
+end do;
+
+if 0>r or r>1 then error "Root invalid; must be in (0,1)" else end if;
+
 # Beyond square-roots, this procedure tends to give results which are unevaluated sums in terms of RootOf_
 
-	sin(r*Pi)/(r*Pi) * A . map(int,((t^(1/r)*LinearAlgebra[IdentityMatrix](n) + A)^(-1),t=0..infinity))
+sin(r*Pi)/(r*Pi) * A . map(int,((t^(1/r)*LinearAlgebra[IdentityMatrix](n) + A)^(-1),t=0..infinity))
 
 # Credit for this formula goes to Nick Higham and Lijing Lin https://www.maths.manchester.ac.uk/~higham/talks/talk09_stoch.pdf p3, however, I cannot find a source beyond this
 
