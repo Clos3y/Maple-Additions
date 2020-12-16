@@ -4,6 +4,8 @@ MatrixRoot:=proc(n,r,A)
 # n is the dimension of Matrix A, where A is a Complex nxn matrix with positive real eigenvalues
 # r is the root you wish to take, with r in (0,1)
 
+local i
+
 #Exception handling
 
 for i from 1 to n do:
