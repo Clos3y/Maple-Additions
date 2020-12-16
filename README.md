@@ -1,2 +1,4 @@
 # Maple-Matrix-Tools
-Any matrix tools I see necessary but Maple doesn't have
+
+1. Roots of Matrices
+2. Partial Trace (coming soon)
