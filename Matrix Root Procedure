@@ -11,7 +11,7 @@ local i;
 
 for i from 1 to numelems(LinearAlgebra[Eigenvalues](A)) do:
 
-	if evalf(LinearAlgebra[Eigenvalues](A)[i])<0 then error "Negative eigenvalue; must be positive" else end if;
+	if evalf(LinearAlgebra[Eigenvalues](A)[i])<=0 then error "Negative eigenvalue; must be positive" else end if;
 
 end do;
 
