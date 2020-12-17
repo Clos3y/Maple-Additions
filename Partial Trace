@@ -1,0 +1,18 @@
+PartialTrace:=proc(M::Matrix,size:=2)
+
+local n,b,iteri,i,iterj,j;
+
+n:=sqrt(numelems(M)):
+b:=Matrix(n/size):
+iteri:=0:
+for i from 1 to n by size do:
+iterj:=0:
+for j from 1 to n by size do:
+b[i-iteri,j-iterj]:=add(M[i+k,j+k],k=0..(blocklength-1));
+iterj:=iterj+1:
+od:
+iteri:=iteri+1:
+od:
+
+return b
+end proc;
