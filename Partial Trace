@@ -1,18 +1,37 @@
-PartialTrace:=proc(M::Matrix,size:=2)
+PartialTrace := proc(M::Matrix,size:=2)
+
+# v1.0
+
+# Takes a Matrix M of size nxn where n is even, and a block size (or submatrix size) as a whole number divisor of n. For instance, if n = 8, size = 2 would give a 4x4 resulting partially traced matrix; if n = 6, size = 3 would give a 2x2 partially traced matrix
+
+# It's quite clunky, with complexity somewhere in the region of O(n^2), but otherwise I have no idea what else to optimise.
 
 local n,b,iteri,i,iterj,j;
 
 n:=sqrt(numelems(M)):
+
+if type(n,odd) then error "Does not work for odd sized matrices" else end if;
+
 b:=Matrix(n/size):
+
 iteri:=0:
+
 for i from 1 to n by size do:
-iterj:=0:
-for j from 1 to n by size do:
-b[i-iteri,j-iterj]:=add(M[i+k,j+k],k=0..(blocklength-1));
-iterj:=iterj+1:
-od:
-iteri:=iteri+1:
+
+  iterj:=0:
+
+  for j from 1 to n by size do:
+
+		b[iteri+1,iterj+1]:=add(M[i+k,j+k],k=0..(size-1));
+
+		++iterj
+
+	od:
+
+	++iteri
+
 od:
 
 return b
-end proc;
+
+end proc:
