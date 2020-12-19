@@ -1,6 +1,6 @@
 MatrixRoot:=proc(r,A::Matrix,method:="element")
 
-local i,f,R,k,p,solutionDummy;
+local i,f,R,k,p,solutionDummy,sol,solutions,j;
 
 # v1.0
 
@@ -21,7 +21,7 @@ if 0>r or r>1 then error "Root invalid; must be in (0,1)" else end if;
 
 # Beyond square-roots, this procedure tends to give results which are unevaluated sums in terms of RootOf_
 
-sin(r*Pi)/(r*Pi) * A . map(int,((t^(1/r)*LinearAlgebra[IdentityMatrix](sqrt(numelems(A))) + A)^(-1),t=0..infinity))
+map(convert,sin(r*Pi)/(r*Pi) * A . map(int,((t^(1/r)*Matrix((sqrt(numelems(A))),shape=identity) + A)^(-1),t=0..infinity)),radical)
 
 # Credit for this formula goes to Nick Higham and Lijing Lin https://www.maths.manchester.ac.uk/~higham/talks/talk09_stoch.pdf p3, however, I cannot find a source beyond this
 
@@ -43,7 +43,23 @@ od;
 
 od;
 
+if numelems([solve(solutionDummy)])<>1 then
+
+sol:=[solve(solutionDummy)];
+
+solutions:=[]:
+
+for j,i in sol do:
+
+solutions := [op(solutions),subs(map(convert,i,radical),R)];
+
+end do;
+return solutions;
+else
+
 return subs(map(convert,solve(solutionDummy),radical),R)
+
+end if;
 
 else end if;
 
