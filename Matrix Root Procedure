@@ -1,8 +1,10 @@
-MatrixRoot:=proc(r,A)
+MatrixRoot:=proc(r,A::Matrix,method:="element")
 
-local i;
+local i,f,R,k,p,solutionDummy;
 
 # v1.0
+
+if method="integral" then 
 
 # A is a Complex nxn matrix with positive real eigenvalues
 # r is the root you wish to take, with r in (0,1)
@@ -22,5 +24,27 @@ if 0>r or r>1 then error "Root invalid; must be in (0,1)" else end if;
 sin(r*Pi)/(r*Pi) * A . map(int,((t^(1/r)*LinearAlgebra[IdentityMatrix](sqrt(numelems(A))) + A)^(-1),t=0..infinity))
 
 # Credit for this formula goes to Nick Higham and Lijing Lin https://www.maths.manchester.ac.uk/~higham/talks/talk09_stoch.pdf p3, however, I cannot find a source beyond this
+
+elif method="element" then 
+
+solutionDummy:=[]:
+
+f:=(i,j)->x[i,j]:
+
+R:=Matrix(sqrt(numelems(A)),f);
+
+for k from 1 to sqrt(numelems(A)) do:
+
+for p from 1 to sqrt(numelems(A)) do:
+
+solutionDummy:=[op(solutionDummy),A[k,p]=(R^(1/r))[k,p]]
+
+od;
+
+od;
+
+return subs(map(convert,solve(solutionDummy),radical),R)
+
+else end if;
 
 end proc;
