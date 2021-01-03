@@ -1,4 +1,4 @@
-MatrixRoot:=proc(r,A::Matrix,method:="element")
+MatrixRoot:=proc(A::Matrix,r,method:="element")
 
 local i,f,R,k,p,solutionDummy,sol,solutions,j;
 
