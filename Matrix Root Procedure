@@ -1,10 +1,10 @@
-MatrixRoot:=proc(A::Matrix,r,method:="element")
+MatrixRoot:=proc(A::Matrix,r,method:=element)
 
 local i,f,R,k,p,solutionDummy,sol,solutions,j;
 
 # v1.1
 
-if method="integral" then 
+if method=integral then 
 
 # A is a Complex nxn matrix with positive real eigenvalues
 # r is the root you wish to take, with r in (0,1)
@@ -25,7 +25,10 @@ return map(convert,sin(r*Pi)/(r*Pi) * A . map(int,((t^(1/r)*Matrix((sqrt(numelem
 
 # Credit for this formula goes to Nick Higham and Lijing Lin https://www.maths.manchester.ac.uk/~higham/talks/talk09_stoch.pdf p3, however, I cannot find a source beyond this
 
-elif method="element" then 
+elif method=element then 
+
+
+# For this method, the matrix A can be of any type or shape
 
 solutionDummy:=[]:
 
@@ -49,18 +52,20 @@ sol:=[solve(solutionDummy,convert(R,list))];
 
 solutions:=[]:
 
-for j,i in sol do:
+for j,i in op(sol) do:
 
-solutions := [op(solutions),subs(map(convert,op(i),radical),R)];
+solutions := [op(solutions),subs(map(convert,i,radical),R)];
 
 end do;
+
 return solutions;
+
 else
 
-return subs(map(convert,solve(solutionDummy,convert(R,list)),radical),R)
+return subs(map(convert,op(solve(solutionDummy,convert(R,list))),radical),R)
 
 end if;
 
 else end if;
 
-end proc:
+end proc;
