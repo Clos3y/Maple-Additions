@@ -1,4 +1,4 @@
-MatrixRoot:=proc(A::Matrix,r,method:=element)
+MatrixRoot := proc(A::Matrix,r,method:=element)
 
 local i,f,R,k,p,solutionDummy,sol,solutions,j;
 
@@ -32,37 +32,31 @@ elif method=element then
 
 solutionDummy:=[]:
 
-f:=(i,j)->x[i,j]:
+f := (i,j) -> x[i,j]:
 
-R:=Matrix(sqrt(numelems(A)),f);
+# Creates the dummy matrix
+
+R := Matrix(sqrt(numelems(A)),f);
 
 for k from 1 to sqrt(numelems(A)) do:
 
-for p from 1 to sqrt(numelems(A)) do:
+	for p from 1 to sqrt(numelems(A)) do:
 
-solutionDummy:=[op(solutionDummy),A[k,p]=(R^(1/r))[k,p]]
+		solutionDummy := {op(solutionDummy),A[k,p]=(R^(1/r))[k,p]}
 
-od;
+	od;
 
 od;
 
 if numelems([solve(solutionDummy)])<>1 then
 
-sol:=[solve(solutionDummy,convert(R,list))];
+	sol := [solve(solutionDummy,convert(R,set),explicit)];
 
-solutions:=[]:
-
-for j,i in op(sol) do:
-
-solutions := [op(solutions),subs(map(convert,i,radical),R)];
-
-end do;
-
-return solutions;
+	return sol
 
 else
 
-return subs(map(convert,op(solve(solutionDummy,convert(R,list))),radical),R)
+	return subs(map(convert,op(solve(solutionDummy,convert(R,list))),radical),R)
 
 end if;
 
