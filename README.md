@@ -1,0 +1,1 @@
+* `MatrixPower.mpl` defines a method to raise one matrix to the power of another.
