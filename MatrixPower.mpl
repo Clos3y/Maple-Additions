@@ -1,10 +1,10 @@
 MatrixPower := proc(A,B::Matrix,n := infinity);
 
+size := sqrt(numelems(B));
+
 if type(A,Matrix) then
 
-size := sqrt(numelems(A));
-
-if sqrt(numelems(B)) <> size then error "Matrices need to be the same size!" else end if;
+if sqrt(numelems(A)) <> size then error "Matrices need to be the same size!" else end if;
 
 if n = infinity then return LinearAlgebra[MatrixExponential](B.LinearAlgebra[MatrixFunction](A,ln(x),x));
 
