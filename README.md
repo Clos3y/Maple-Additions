@@ -1,1 +1,1 @@
-* `MatrixPower.mpl` defines a method to raise one matrix to the power of another.
+* `MatrixPower.mpl` defines a a method to raise something to the power of a matrix. If a scalar base is given, the result is a matrix, so it is not invertible. However is the base is a matrix, the result is invertible. The third argument determines precision: if ignored, it tries to find the exact answer; if specified, it uses that many terms of the exponential series.
