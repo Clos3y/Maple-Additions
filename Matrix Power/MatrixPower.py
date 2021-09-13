@@ -1,16 +1,17 @@
 import numpy as np
 import scipy.linalg as spylg
 
+
 def factorial(n: int) -> int:
     if n == 0:
         return 1
     elif n == 1:
         return n
     else:
-        return n*factorial(n-1)
+        return n * factorial(n - 1)
 
 
-def MatrixPower(A, B, n = 10, method="scipy"):
+def MatrixPower(A, B, n=10, method="scipy"):
     """
     Takes a matrix to the power of another matrix
 
@@ -28,7 +29,7 @@ def MatrixPower(A, B, n = 10, method="scipy"):
 
     if method == "scipy":
         """
-        Best method at present, but can be quite slow    
+        Best method at present, but can be quite slow
         """
 
         return spylg.expm(np.matmul(B, spylg.logm(A)))
@@ -43,7 +44,7 @@ def MatrixPower(A, B, n = 10, method="scipy"):
 
         for i in range(n):
 
-            SUM += pow(-1, i)*np.linalg.matrix_power(np.matmul(B,
-                                                               spylg.logm(A)), i)/factorial(i)
+            SUM += pow(-1, i) * np.linalg.matrix_power(np.matmul(B,
+                                                                 spylg.logm(A)), i) / factorial(i)
 
         return SUM
